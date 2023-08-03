@@ -1,0 +1,37 @@
+@use '@angular/material' as mat;
+@import 'assets/scss/01_utilities/variables';
+@include mat.core();
+
+$fan-primary: mat.define-palette($main-palette);
+$fan-accent: mat.define-palette($alternative-palette, 200, 100, 400);
+$fan-warn: mat.define-palette(mat.$red-palette);
+$fan-theme: mat.define-light-theme((color: (primary: $fan-primary,
+        accent: $fan-accent,
+        warn: $fan-warn,
+      )));
+@include mat.all-component-themes($fan-theme);
+
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+main {
+  min-height: 76vh;
+  background-color:  #f4f4f4;
+}
+
+footer{
+  background-color: map-get($map: $main-palette , $key: 800);;
+}
+
+a{
+  color: map-get($map: $main-palette , $key: 50);
+  text-decoration: none !important
+}
