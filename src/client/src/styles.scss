@@ -9,29 +9,26 @@ $fan-theme: mat.define-light-theme((color: (primary: $fan-primary,
         accent: $fan-accent,
         warn: $fan-warn,
       )));
+
 @include mat.all-component-themes($fan-theme);
 
-
-html,
 body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 main {
-  min-height: 76vh;
-  background-color:  #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f4f4f4;
 }
 
-footer{
-  background-color: map-get($map: $main-palette , $key: 800);;
+footer {
+  background-color: map-get($map: $main-palette , $key: 800);
 }
 
-a{
+a {
   color: map-get($map: $main-palette , $key: 50);
   text-decoration: none !important
 }

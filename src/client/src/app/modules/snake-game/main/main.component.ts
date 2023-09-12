@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 
 enum Direction {
   UP,
@@ -23,11 +25,12 @@ export class MainComponent implements AfterViewInit {
   private snake: SnakePart[] = [];
   private food: SnakePart = { x: 0, y: 0 };
   private direction: Direction = Direction.RIGHT;
-  private gameSpeed: number = 150;
+  private gameSpeed: number = 100;
   private intervalId: any;
-  private blockSize: number = 5; // Tamaño de los cuadritos
+  private blockSize: number = 5;
+  score: number = 0;
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, public dialog: MatDialog) { }
 
   ngAfterViewInit() {
     this.gameCanvas = this.el.nativeElement.querySelector('canvas');
@@ -44,6 +47,7 @@ export class MainComponent implements AfterViewInit {
   resetGame() {
     this.snake = [{ x: 100, y: 100 }];
     this.food = this.generateFood();
+    this.score = 0;
     this.direction = Direction.RIGHT;
   }
 
@@ -58,8 +62,7 @@ export class MainComponent implements AfterViewInit {
       this.move();
       if (this.checkCollision()) {
         this.stopGame();
-        this.resetGame();
-        this.startGame();
+        this.endAndRestart();
       }
       this.draw();
     }, this.gameSpeed);
@@ -68,6 +71,19 @@ export class MainComponent implements AfterViewInit {
   stopGame() {
     clearInterval(this.intervalId);
   }
+
+  endAndRestart() {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        content: `You have scored ${this.score} points!!`,
+      },
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.resetGame();
+      this.startGame();
+    });
+  }
+
 
   changeDirection(event: KeyboardEvent) {
     switch (event.key) {
@@ -114,6 +130,7 @@ export class MainComponent implements AfterViewInit {
     this.snake.unshift(head);
     if (head.x === this.food.x && head.y === this.food.y) {
       this.food = this.generateFood();
+      this.score++;
     } else {
       this.snake.pop();
     }
@@ -150,7 +167,6 @@ export class MainComponent implements AfterViewInit {
         const part = this.snake[i];
         this.ctx.fillRect(part.x, part.y, this.blockSize, this.blockSize);
 
-        // Dibujar la cabeza de la serpiente (rectángulo blanco)
         if (i === 0) {
           this.ctx.fillStyle = 'white';
           this.ctx.fillRect(part.x, part.y, this.blockSize, this.blockSize);
@@ -158,18 +174,16 @@ export class MainComponent implements AfterViewInit {
 
         this.ctx.fillStyle = 'black';
       }
-      // Dibujar la manzana (manzana roja con 2 rabitos verdes)
+
       this.ctx.fillStyle = 'red';
       const appleX = this.food.x + this.blockSize / 2;
       const appleY = this.food.y + this.blockSize / 2;
       const appleSize = this.blockSize * 0.5;
 
-      // Dibujar cuerpo de la manzana (círculo)
       this.ctx.beginPath();
       this.ctx.arc(appleX, appleY, appleSize, 0, Math.PI * 2);
       this.ctx.fill();
 
-      // Dibujar rabitos verdes
       this.ctx.strokeStyle = 'green';
       this.ctx.lineWidth = this.blockSize / 4;
       this.ctx.beginPath();
