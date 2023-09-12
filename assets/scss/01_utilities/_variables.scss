@@ -1,0 +1,49 @@
+$main-palette: (
+  50: #83FC97,
+  100: #59F76E,
+  200: #36F245,
+  300: #10EA1B,
+  400: #0EBE0E,
+  500: #0F940A,
+  600: #106E07,
+  700: #0B4403,
+  800: #051901,
+  900: #081901,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: #FFFFFF,
+    600: #FFFFFF,
+    700: #FFFFFF,
+    800: #FFFFFF,
+    900: #FFFFFF,
+  )
+);
+
+$alternative-palette: (
+  50: #FEEAE6,
+  100: #FCBBB1,
+  200: #F7877D,
+  300: #F34D44,
+  400: #EE1111,
+  500: #BB120C,
+  600: #871208,
+  700: #4E0C03,
+  800: #190501,
+  900: #190501,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: #FFFFFF,
+    600: #FFFFFF,
+    700: #FFFFFF,
+    800: #FFFFFF,
+    900: #FFFFFF,
+  )
+);
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
