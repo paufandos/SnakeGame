@@ -1,0 +1,16 @@
+.not-available-message {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  background-color: #000000e1;
+  color: red;
+  padding: 20px;
+  text-align: center;
+  width: 100vw;
+  height: 60vh;
+  position: absolute;
+  z-index: 9999;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

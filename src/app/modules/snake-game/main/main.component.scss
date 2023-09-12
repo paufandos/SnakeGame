@@ -10,3 +10,11 @@ canvas{
     padding: 20px;
     color: red;
 }
+
+
+@media (max-width: 768px) {
+  canvas{
+    width: 90vw;
+    height: 40vh;
+  }
+}
